@@ -1,0 +1,84 @@
+--- xmoto-0.5.7/src/Makefile.am.orig	2011-07-27 19:18:34.000000000 -0400
++++ xmoto-0.5.7/src/Makefile.am	2011-07-27 19:17:49.000000000 -0400
+@@ -244,7 +244,7 @@
+ 		 states/StateViewHighscore.cpp   \
+ 		 states/StateViewHighscore.h
+ 
+-xdgbasedir_SOURCES = xdgbasedir/include/basedir.h xdgbasedir/include/basedir_fs.h xdgbasedir/src/basedir.c
++xdgbasedir_SOURCES = xdgbasedir/include/basedir.h xdgbasedir/include/basedir_fs.h xdgbasedir/src/basedirmac.m
+ 
+ bz2_SOURCES = bzip2/blocksort.c     \
+               bzip2/bzlib.c         \
+--- xmoto-0.5.7/configure.in.orig	2011-07-27 23:07:54.000000000 -0400
++++ xmoto-0.5.7/configure.in	2011-07-27 23:08:03.000000000 -0400
+@@ -6,6 +6,7 @@
+ 
+ AC_PROG_CXX
+ AC_PROG_CPP
++AC_PROG_OBJC
+ AC_PROG_INSTALL
+ 
+ dnl endianness
+--- xmoto-0.5.7/src/xdgbasedir/src/basedirmac.m.orig	1969-12-31 19:00:00.000000000 -0500
++++ xmoto-0.5.7/src/xdgbasedir/src/basedirmac.m	2011-07-27 23:23:20.000000000 -0400
+@@ -0,0 +1,60 @@
++// Ersatz xdg implementation for Mac
++// (C) 2011 Dave Vasilevsky
++// This file is hereby placed into the public domain.
++
++#include <Cocoa/Cocoa.h>
++#include <Carbon/Carbon.h>
++
++#include <xdgbasedir/include/basedir.h>
++
++typedef struct {
++	char *cache, *data, *config;
++} HandleInternal;
++
++#define INTERNAL(hdl) ((HandleInternal*)hdl->reserved)
++
++char *userdir(NSSearchPathDirectory d) {
++	NSArray *a = NSSearchPathForDirectoriesInDomains(d,
++		NSUserDomainMask, YES);
++	NSString *s = [a objectAtIndex: 0];
++	
++	char path[PATH_MAX+1];
++	[s getFileSystemRepresentation: path maxLength: sizeof(path)];
++	return strdup(path);
++}
++
++xdgHandle * xdgInitHandle(xdgHandle *handle) {
++	HandleInternal *i = malloc(sizeof(HandleInternal));
++	handle->reserved = i;
++	
++	i->data = userdir(NSApplicationSupportDirectory);
++	i->cache = userdir(NSCachesDirectory);
++	
++	FSRef prefs;
++	FSFindFolder(kUserDomain, kPreferencesFolderType, kDontCreateFolder,
++		&prefs);
++	char path[PATH_MAX+1];
++	FSRefMakePath(&prefs, (UInt8*)path, sizeof(path));
++	i->config = strdup(path);
++}
++
++void xdgWipeHandle(xdgHandle *handle) {
++	HandleInternal *i = INTERNAL(handle);
++	free(i->cache);
++	free(i->data);
++	free(i->config);
++	free(i);
++}
++
++const char * xdgCacheHome(xdgHandle *handle) {
++	return INTERNAL(handle)->cache;
++}
++
++const char * xdgDataHome(xdgHandle *handle) {
++	return INTERNAL(handle)->data;	
++}
++
++const char * xdgConfigHome(xdgHandle *handle) {
++	return INTERNAL(handle)->config;
++}
++

@@ -1,0 +1,21 @@
+--- SDLMain.m.orig	2011-07-27 17:55:15.000000000 -0400
++++ SDLMain.m	2011-07-27 17:58:37.000000000 -0400
+@@ -86,14 +86,12 @@
+ {
+     if (shouldChdir)
+     {
+-        char parentdir[MAXPATHLEN];
+-        CFURLRef url = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+-        CFURLRef url2 = CFURLCreateCopyDeletingLastPathComponent(0, url);
+-        if (CFURLGetFileSystemRepresentation(url2, 1, (UInt8 *)parentdir, MAXPATHLEN)) {
+-            chdir(parentdir);   /* chdir to the binary app's parent */
++        char resources[MAXPATHLEN];
++		CFURLRef url = CFBundleCopyResourcesDirectoryURL(CFBundleGetMainBundle());
++		if (CFURLGetFileSystemRepresentation(url, true, (UInt8 *)resources, MAXPATHLEN)) {
++	        assert ( chdir (resources) == 0 );   /* chdir to the binary app's resources dir */
+         }
+         CFRelease(url);
+-        CFRelease(url2);
+     }
+ }
+ 
