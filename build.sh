@@ -62,7 +62,8 @@ if [ \! -f $PREFIX/lib/libpng.dylib ]; then
     if [ \! -d libpng* ]; then tar xf $SRCDIR/libpng*; fi
     pushd libpng*
     
-    ./configure --prefix=$PREFIX --disable-dependency-tracking
+    CFLAGS="$OPT $ARCHES" CPPFLAGS="$INCPATH" LDFLAGS="$ARCHES $SYSLIBROOT" \
+        ./configure --prefix=$PREFIX --disable-dependency-tracking
     make -j$PARALLEL && make install
     
     popd

@@ -20,10 +20,12 @@ if [ -z "$OPT" ]; then
     export OPT='-O0 -g'
 fi
 
+export INCPATH="-isysroot $SDK -I$PREFIX/include"
+export SYSLIBROOT="-Wl,-syslibroot,$SDK"
+
 export CC=gcc-$GCC_VERSION
 export CXX=g++-$GCC_VERSION
-export CFLAGS="$OPT $ARCHES -isysroot $SDK -I$PREFIX/include"
+export CFLAGS="$OPT $ARCHES $INCPATH"
 export CXXFLAGS="$CFLAGS"
-export SYSLIBROOT="-Wl,-syslibroot,$SDK"
 
 export PARALLEL=`sysctl hw.ncpu | perl -ne 's/\D//g; print $_+1'`

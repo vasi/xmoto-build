@@ -7,7 +7,7 @@ if [ \! -f jpeg* ]; then
 fi
 
 if [ \! -f libpng* ]; then
-    curl -O -L http://downloads.sourceforge.net/libpng/libpng-1.5.4.tar.gz
+    curl -O -L http://downloads.sourceforge.net/libpng/libpng-1.6.7.tar.gz
 fi
 
 if [ \! -f lua* ]; then
