@@ -1,0 +1,11 @@
+--- xmoto-0.5.10-orig/src/image/tim_jpeg.cpp	2011-10-11 16:18:11.000000000 -0400
++++ xmoto-0.5.10/src/image/tim_jpeg.cpp	2013-12-12 05:19:15.000000000 -0500
+@@ -29,6 +29,8 @@
+ #include "tim.h"
+ 
+ extern "C" {
++  #undef TRUE
++  #undef FALSE
+   #include <jpeglib.h>
+   #include "jerror.h"
+ }

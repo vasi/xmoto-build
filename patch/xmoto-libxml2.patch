@@ -1,0 +1,20 @@
+--- xmoto-0.5.10-orig/configure.in	2012-05-02 17:08:40.000000000 -0400
++++ xmoto-0.5.10/configure.in	2013-12-12 05:23:27.000000000 -0500
+@@ -24,17 +25,6 @@
+ AC_CHECK_LIB(jpeg, jpeg_CreateCompress, [], [AC_MSG_ERROR(libjpeg required)])
+ AC_CHECK_LIB(png, png_read_image, [], [AC_MSG_ERROR(libpng required)])
+ 
+-dnl libxml2
+-if test "$target_os" != "mingw32"
+-then
+-AM_PATH_XML2([], 
+-             AC_DEFINE(HAVE_XML2, 1),
+-             [AC_MSG_ERROR([*** cannot find the libxml2 library ])])
+-CPPFLAGS="$CPPFLAGS"" ""$XML_CPPFLAGS"
+-CFLAGS="$CFLAGS"" ""$XML_CPPFLAGS"
+-LIBS="$LIBS""$XML_LIBS"
+-fi
+-
+ dnl bz2
+ if test "$target_os" = "mingw32" # on windows, don't include libbz2
+ then

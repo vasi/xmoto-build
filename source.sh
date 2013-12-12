@@ -3,7 +3,7 @@ mkdir -p $SRCDIR
 cd $SRCDIR
 
 if [ \! -f jpeg* ]; then
-    curl -O http://www.ijg.org/files/jpegsrc.v8c.tar.gz
+    curl -O http://www.ijg.org/files/jpegsrc.v9.tar.gz
 fi
 
 if [ \! -f libpng* ]; then
@@ -11,19 +11,19 @@ if [ \! -f libpng* ]; then
 fi
 
 if [ \! -f lua* ]; then
-    curl -O http://www.lua.org/ftp/lua-5.1.4.tar.gz
+    curl -O http://www.lua.org/ftp/lua-5.1.5.tar.gz
 fi
 
 if [ \! -f ode* ]; then
-    curl -O -L http://downloads.sourceforge.net/opende/ode-0.11.1.tar.bz2
+    curl -O -L http://downloads.sourceforge.net/opende/ode-0.12.tar.bz2
 fi
 
 if [ \! -f xmoto* ]; then
-    curl -O http://download.tuxfamily.org/xmoto/xmoto/0.5.7/xmoto-0.5.7-src.tar.gz
+    curl -O http://download.tuxfamily.org/xmoto/xmoto/0.5.10/xmoto-0.5.10-src.tar.gz
 fi
 
 if [ \! -f SDL-1.* ]; then
-    curl -O http://www.libsdl.org/release/SDL-1.2.14.dmg
+    curl -O http://www.libsdl.org/release/SDL-1.2.15-OSX10.4.dmg
 fi
 
 if [ \! -f SDL_mixer* ]; then
@@ -43,5 +43,5 @@ if [ \! -e SDL_net* ]; then
 fi
 
 if [ \! -f gettext* ]; then
-    curl -O http://ftp.gnu.org/gnu/gettext/gettext-0.18.1.1.tar.gz
+    curl -O http://ftp.gnu.org/gnu/gettext/gettext-0.18.3.1.tar.gz
 fi

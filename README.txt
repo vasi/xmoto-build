@@ -45,11 +45,13 @@ PATCHES
 
 * devel-lite: Make X-Moto chdir to the .app/Contents/Resources directory, so it can find the xmoto.bin and other such resources.
 
-* xmoto-png: Fix missing zlib include.
-
 * xmoto-sqlite: Remove memory reporting so we can work with sqlite < 3.5, on old OS X.
 
 * xmoto-mac-dirs: Put prefs and such in ~/Library directories. Maybe there should be some sort of migration procedure?
+
+* xmoto-libxml2: Don't use xml2-config, it has trouble with SDKs.
+
+* xmoto-jpeg: Handle 'boolean' being doubly defined.
 
 
 AUTHORS

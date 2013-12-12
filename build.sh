@@ -133,8 +133,9 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
         DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
         OBJC="$CC" OBJCFLAGS="$CFLAGS" \
-        CPPFLAGS="-I$PREFIX/include -F$SDLDIR" \
+        CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
         LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR" \
+        LIBS="-lxml2" \
         ./configure --prefix=$PREFIX --disable-dependency-tracking \
         --with-apple-opengl-framework \
         --with-sdl-framework=$SDLDIR/SDL.framework \
