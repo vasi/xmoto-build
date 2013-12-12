@@ -23,7 +23,7 @@ if [ \! -e $SDLDIR/SDL_net.framework ]; then
     CC= xcodebuild -project Xcode/SDL_net.xcodeproj \
         -configuration Release -sdk macosx10.4 ARCHS="ppc i386 x86_64" \
 		MACOSX_DEPLOYMENT_TARGET=10.4 GCC_VERSION=4.0 \
-		INSTALL_PATH=/Library/Frameworks LD_RUNPATH_SEARCH_PATHS=
+		INSTALL_PATH=@executable_path/../Frameworks LD_RUNPATH_SEARCH_PATHS=
     cp -R Xcode/build/Release/SDL_net.framework $SDLDIR
     
     popd
