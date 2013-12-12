@@ -119,7 +119,14 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     
     ln -sf "/System/Library/Fonts/儷黑 Pro.ttf" asian.ttf
     cat $PATCHDIR/xmoto-*.patch | patch -p1 --forward || [ 1 = $? ]
-    autoreconf -i
+    
+	# Fix aclocal breakage
+	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
+		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
+		> autom4te.cfg
+	export AUTOM4TE_CFG="$PWD/autom4te.cfg"
+	
+	autoreconf -i
     
     DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
         DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \

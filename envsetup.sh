@@ -1,3 +1,6 @@
+export XC3ROOT=${XC3ROOT-/Library/Xcode3}
+export PATH=$XC3ROOT/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
 export SRCDIR=$BASEDIR/src
 export SDLDIR=$BASEDIR/sdl
 export PATCHDIR=$BASEDIR/patch
@@ -8,7 +11,7 @@ export PREFIX=$VARDIR/prefix
 if [ -z "$ARCHES" ]; then
   # 10.4 Universal PPC/Intel
   export MACOSX_DEPLOYMENT_TARGET=10.4
-  export SDK=/Developer/SDKs/MacOSX10.4u.sdk
+  export SDK=$XC3ROOT/SDKs/MacOSX10.4u.sdk
   export GCC_VERSION=4.0
   export ARCHES="-arch i386 -arch ppc"
 fi

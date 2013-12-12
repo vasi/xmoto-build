@@ -11,6 +11,8 @@ This is a script to package X-Moto ( http://xmoto.tuxfamily.org ) for Mac OS X. 
 
 INSTRUCTIONS
 
+Install Xcode 3, the prefix I prefer is /Library/Xcode3. To install it on a recent version of OS X: http://lapcatsoftware.com/articles/xcode3onmountainlion.html
+
 Open the terminal, and cd into the parent directory of this README. Then run ./build.sh . You will end up with a nice .dmg containing X-Moto in the 'build' directory.
 
 To build multi-arch for distribution, I recommend using dist.sh . Note that 64-bit builds require Mercurial (hg) to be present: http://mercurial.selenic.com/
@@ -21,6 +23,7 @@ NOTES
 * Script is verified to build X-Moto on 10.6 Intel. Should work on PPC and 10.4-5 as well.
 
 * Various options are in envsetup.sh. Includes:
+  - Xcode 3 prefix
   - Architectures (currently Universal)
   - SDK (currently 10.4)
   - GCC optimization flags (currently -Os)
