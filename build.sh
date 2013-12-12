@@ -20,10 +20,11 @@ if [ \! -e $SDLDIR/SDL_net.framework ]; then
     if [ \! -d SDL_net ]; then hg -R $SRCDIR/SDL_net archive SDL_net; fi
     pushd SDL_net
     
-    tar xf Xcode.tar.gz
     CC= xcodebuild -project Xcode/SDL_net.xcodeproj \
-        -configuration Deployment -sdk macosx10.4 ARCHS="ppc i386 x86_64"
-    cp -R Xcode/build/Deployment/SDL_net.framework $SDLDIR
+        -configuration Release -sdk macosx10.4 ARCHS="ppc i386 x86_64" \
+		MACOSX_DEPLOYMENT_TARGET=10.4 GCC_VERSION=4.0 \
+		INSTALL_PATH=/Library/Frameworks LD_RUNPATH_SEARCH_PATHS=
+    cp -R Xcode/build/Release/SDL_net.framework $SDLDIR
     
     popd
 fi

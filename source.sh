@@ -36,7 +36,7 @@ fi
 
 if [ \! -e SDL_net* ]; then
     if hash hg 2>/dev/null; then
-      hg clone http://hg.libsdl.org/SDL_net/
+      hg clone -b SDL-1.2 http://hg.libsdl.org/SDL_net/
     else
       curl -O http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.dmg
     fi
