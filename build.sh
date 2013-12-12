@@ -117,7 +117,7 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     dir=`find . -maxdepth 1 -name xmoto\* -type d | head -n1`
     pushd $dir
     
-    ln -sf "/System/Library/Fonts/儷黑 Pro.ttf" asian.ttf
+#    ln -sf "/System/Library/Fonts/儷黑 Pro.ttf" asian.ttf
     cat $PATCHDIR/xmoto-*.patch | patch -p1 --forward || [ 1 = $? ]
     
 	# Fix aclocal breakage
@@ -138,15 +138,15 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
         --with-sdl-framework=$SDLDIR/SDL.framework \
         --disable-sdltest \
         --with-internal-xdg=1 \
-        --with-gamedatadir=. --with-localesdir='./locale' --with-x=no \
-        --with-asian-ttf-file=Textures/Fonts/asian.ttf
+        --with-gamedatadir=. --with-localesdir='./locale' --with-x=no
+#        --with-asian-ttf-file=Textures/Fonts/asian.ttf
     
     # if we're running xmoto -pack, we need to be able to find the libs
     # even though their install_paths are designed for the .app
     DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
         DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib make -j$PARALLEL
     make install
-    cp asian.ttf $PREFIX/share/xmoto/Textures/Fonts/
+#    cp asian.ttf $PREFIX/share/xmoto/Textures/Fonts/
     
     popd
 fi
