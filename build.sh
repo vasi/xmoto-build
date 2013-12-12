@@ -23,7 +23,10 @@ if [ \! -e $SDLDIR/SDL_net.framework ]; then
     CC= xcodebuild -project Xcode/SDL_net.xcodeproj \
         -configuration Release -sdk macosx10.4 ARCHS="ppc i386 x86_64" \
 		MACOSX_DEPLOYMENT_TARGET=10.4 GCC_VERSION=4.0 \
-		INSTALL_PATH=@executable_path/../Frameworks LD_RUNPATH_SEARCH_PATHS=
+		INSTALL_PATH=@executable_path/../Frameworks \
+        LD_RUNPATH_SEARCH_PATHS= \
+        HEADER_SEARCH_PATHS=$SDLDIR/SDL.framework/Headers \
+        FRAMEWORK_SEARCH_PATHS=$SDLDIR
     cp -R Xcode/build/Release/SDL_net.framework $SDLDIR
     
     popd
@@ -111,6 +114,9 @@ for lib in jpeg png ode intl; do
     install_name_tool -id @executable_path/../Libraries/lib$lib.dylib \
         $PREFIX/lib/lib$lib.dylib
 done
+install_name_tool \
+    -id @executable_path/../Frameworks/SDL.framework/Versions/A/SDL \
+    $SDLDIR/SDL.framework/SDL
 
 # xmoto
 if [ \! -f $PREFIX/bin/xmoto ]; then
