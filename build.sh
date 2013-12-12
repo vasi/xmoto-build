@@ -90,7 +90,7 @@ if [ \! -f $PREFIX/lib/libode.dylib ]; then
     pushd ode*
     
     ./configure --prefix=$PREFIX --disable-dependency-tracking \
-        --disable-demos --enable-shared
+        --enable-double-precision --disable-demos --enable-shared
     make -j$PARALLEL && make install
 
     popd
