@@ -35,6 +35,7 @@ fi
 # devel-lite: The minimal SDLmain implementation
 if [ \! -f $PREFIX/lib/libSDLmain.a ]; then
     rm -rf devel-lite; cp -R $SDLDIR/devel-lite devel-lite
+    cp $SRCDIR/SDLMain.m devel-lite/ # Fix 10.9 -psn issue
     pushd devel-lite
     
     # Patch devel-lite so we chdir to the Resources dir

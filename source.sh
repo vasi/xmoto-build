@@ -45,3 +45,7 @@ fi
 if [ \! -f gettext* ]; then
     curl -O http://ftp.gnu.org/gnu/gettext/gettext-0.18.3.1.tar.gz
 fi
+
+if [ \! -f SDLMain.m ]; then
+    curl -O http://hg.libsdl.org/SDL/raw-file/SDL-1.2/src/main/macosx/SDLMain.m
+fi
