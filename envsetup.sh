@@ -11,7 +11,7 @@ export PREFIX=$VARDIR/prefix
 if [ -z "$ARCHES" ]; then
   # 10.4 Universal PPC/Intel
   export MACOSX_DEPLOYMENT_TARGET=10.4
-  export SDK=$XC3ROOT/SDKs/MacOSX10.4u.sdk
+  export SDKID=MacOSX10.4u.sdk
   export GCC_VERSION=4.0
   export ARCHES="-arch i386 -arch ppc"
 fi
@@ -20,6 +20,7 @@ if [ -z "$OPT" ]; then
     export OPT='-O0 -g'
 fi
 
+export SDK=$XC3ROOT/SDKs/$SDKID
 export INCPATH="-isysroot $SDK -I$PREFIX/include"
 export SYSLIBROOT="-Wl,-syslibroot,$SDK"
 
