@@ -96,7 +96,7 @@ if [ \! -f $PREFIX/lib/libintl.dylib ]; then
     if [ \! -d gettext* ]; then tar xf $SRCDIR/gettext*; fi
     pushd gettext*
     
-    CFLAGS="$CFLAGS -I/usr/include/libxml2"
+    CFLAGS="$CFLAGS -I/usr/include/libxml2" \
         ./configure --prefix=$PREFIX --disable-java --disable-csharp \
         --disable-dependency-tracking
     make -j$PARALLEL && make install
