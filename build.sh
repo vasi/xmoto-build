@@ -15,6 +15,11 @@ $BASEDIR/source.sh
 $BASEDIR/dmg.sh
 mkdir -p build; cd build
 
+# Old OS X versions don't like @rpath
+install_name_tool \
+    -id @executable_path/../Frameworks/SDL.framework/Versions/A/SDL \
+    $SDLDIR/SDL.framework/SDL
+
 # sdl_net: Need hg version, release has no 64-bit
 if [ \! -e $SDLDIR/SDL_net.framework ]; then
     if [ \! -d SDL_net ]; then hg -R $SRCDIR/SDL_net archive SDL_net; fi
@@ -115,9 +120,6 @@ for lib in jpeg png ode intl; do
     install_name_tool -id @executable_path/../Libraries/lib$lib.dylib \
         $PREFIX/lib/lib$lib.dylib
 done
-install_name_tool \
-    -id @executable_path/../Frameworks/SDL.framework/Versions/A/SDL \
-    $SDLDIR/SDL.framework/SDL
 
 # xmoto
 if [ \! -f $PREFIX/bin/xmoto ]; then
