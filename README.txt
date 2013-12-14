@@ -37,7 +37,6 @@ TODO
 * Eventually make the system more elegant and robust
 * Ensure no outside utilities (Fink, MacPorts) are being used
 * Make it build with Xcode 4?
-* Fix Asian font issues
 
 
 PATCHES
