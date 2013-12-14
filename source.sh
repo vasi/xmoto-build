@@ -23,23 +23,19 @@ if [ \! -f xmoto* ]; then
 fi
 
 if [ \! -f SDL-1.* ]; then
-    curl -O http://www.libsdl.org/release/SDL-1.2.15-OSX10.4.dmg
+    curl -O http://www.libsdl.org/release/SDL-1.2.15.dmg
 fi
 
 if [ \! -f SDL_mixer* ]; then
-    curl -O http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.11.dmg
+    curl -O http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.dmg
 fi
 
 if [ \! -f SDL_ttf* ]; then
-    curl -O http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.10.dmg
+    curl -O http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.11.dmg
 fi
 
 if [ \! -e SDL_net* ]; then
-    if hash hg 2>/dev/null; then
-      hg clone -b SDL-1.2 http://hg.libsdl.org/SDL_net/
-    else
-      curl -O http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.dmg
-    fi
+    curl -O http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.8.dmg
 fi
 
 if [ \! -f gettext* ]; then

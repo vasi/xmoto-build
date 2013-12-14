@@ -10,10 +10,10 @@ export PREFIX=$VARDIR/prefix
 
 if [ -z "$ARCHES" ]; then
   # 10.4 Universal PPC/Intel
-  export MACOSX_DEPLOYMENT_TARGET=10.4
-  export SDKID=MacOSX10.4u.sdk
-  export GCC_VERSION=4.0
-  export ARCHES="-arch i386 -arch ppc"
+  export MACOSX_DEPLOYMENT_TARGET=10.6
+  export SDKID=MacOSX10.6.sdk
+  export GCC_VERSION=4.2
+  export ARCHES="-arch x86_64"
 fi
 
 if [ -z "$OPT" ]; then

@@ -15,28 +15,6 @@ $BASEDIR/source.sh
 $BASEDIR/dmg.sh
 mkdir -p build; cd build
 
-# Old OS X versions don't like @rpath
-install_name_tool \
-    -id @executable_path/../Frameworks/SDL.framework/Versions/A/SDL \
-    $SDLDIR/SDL.framework/SDL
-
-# sdl_net: Need hg version, release has no 64-bit
-if [ \! -e $SDLDIR/SDL_net.framework ]; then
-    if [ \! -d SDL_net ]; then hg -R $SRCDIR/SDL_net archive SDL_net; fi
-    pushd SDL_net
-    
-    CC= xcodebuild -project Xcode/SDL_net.xcodeproj \
-        -configuration Release -sdk macosx10.4 ARCHS="ppc i386 x86_64" \
-		MACOSX_DEPLOYMENT_TARGET=10.4 GCC_VERSION=4.0 \
-		INSTALL_PATH=@executable_path/../Frameworks \
-        LD_RUNPATH_SEARCH_PATHS= \
-        HEADER_SEARCH_PATHS=$SDLDIR/SDL.framework/Headers \
-        FRAMEWORK_SEARCH_PATHS=$SDLDIR
-    cp -R Xcode/build/Release/SDL_net.framework $SDLDIR
-    
-    popd
-fi
-
 # devel-lite: The minimal SDLmain implementation
 if [ \! -f $PREFIX/lib/libSDLmain.a ]; then
     rm -rf devel-lite; cp -R $SDLDIR/devel-lite devel-lite
@@ -135,15 +113,13 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
 	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
 		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
 		> autom4te.cfg
-	export AUTOM4TE_CFG="$PWD/autom4te.cfg"
-	
-	autoreconf -i
+	AUTOM4TE_CFG="$PWD/autom4te.cfg" autoreconf -i
     
     DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
         DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
         OBJC="$CC" OBJCFLAGS="$CFLAGS" \
         CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
-        LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR" \
+        LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
         LIBS="-lxml2" \
         ./configure --prefix=$PREFIX --disable-dependency-tracking \
         --with-apple-opengl-framework \

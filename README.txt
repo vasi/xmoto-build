@@ -3,8 +3,7 @@ INTRODUCTION
 This is a script to package X-Moto ( http://xmoto.tuxfamily.org ) for Mac OS X. It takes care of all the nastiness that folks often forget to deal with:
 
 * Self-contained .app bundle, no installer needed
-* Universal binary
-* Works on Mac OS X 10.4 and higher
+* Works on Mac OS X 10.6 and higher
 * Detects locales properly
 * Doesn't hardcode any paths
 
@@ -15,37 +14,33 @@ Install Xcode 3, the prefix I prefer is /Library/Xcode3. To install it on a rece
 
 Open the terminal, and cd into the parent directory of this README. Then run ./build.sh . You will end up with a nice .dmg containing X-Moto in the 'build' directory.
 
-To build multi-arch for distribution, I recommend using dist.sh . Note that 64-bit builds require Mercurial (hg) to be present: http://mercurial.selenic.com/
+To build multi-arch for distribution, I recommend using dist.sh .
 
 
 NOTES
 
-* Script is verified to build X-Moto on 10.6 Intel. Should work on PPC and 10.4-5 as well.
+* Script is verified to build X-Moto on 10.9 with Xcode 3 installed.
 
 * Various options are in envsetup.sh. Includes:
   - Xcode 3 prefix
-  - Architectures (currently Universal)
-  - SDK (currently 10.4)
+  - Architectures (currently i386/x86_64)
+  - SDK (currently 10.6)
   - GCC optimization flags (currently -Os)
 
 * To update the packages used by the script, edit source.sh, and remove files from 'src'.
 
-* Building for 10.2 or 10.3 is feasible, but would require some modifications. It may not be realistic on Intel systems, since gcc 3.3 is not available.
-
 
 TODO
 
-* Verify behavior on PPC and 10.4+ (runs well in Rosetta)
 * Submit my patches to xmoto maintainers
 * Make my SVN repo cleaner
 * Eventually make the system more elegant and robust
+* Fix Asian font issues
 
 
 PATCHES
 
 * devel-lite: Make X-Moto chdir to the .app/Contents/Resources directory, so it can find the xmoto.bin and other such resources.
-
-* xmoto-sqlite: Remove memory reporting so we can work with sqlite < 3.5, on old OS X.
 
 * xmoto-mac-dirs: Put prefs and such in ~/Library directories. Maybe there should be some sort of migration procedure?
 
