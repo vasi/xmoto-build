@@ -109,25 +109,29 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
 #    ln -sf "/System/Library/Fonts/儷黑 Pro.ttf" asian.ttf
     cat $PATCHDIR/xmoto-*.patch | patch -p1 --forward || [ 1 = $? ]
     
-	# Fix aclocal breakage
-	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
-		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
-		> autom4te.cfg
-	AUTOM4TE_CFG="$PWD/autom4te.cfg" autoreconf -i
+    if [ \! -f configure ]; then
+    	# Fix aclocal breakage
+    	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
+    		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
+    		> autom4te.cfg
+    	AUTOM4TE_CFG="$PWD/autom4te.cfg" autoreconf -i
+    fi
     
-    DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
-        DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
-        OBJC="$CC" OBJCFLAGS="$CFLAGS" \
-        CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
-        LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
-        LIBS="-lxml2" \
-        ./configure --prefix=$PREFIX --disable-dependency-tracking \
-        --with-apple-opengl-framework \
-        --with-sdl-framework=$SDLDIR/SDL.framework \
-        --disable-sdltest \
-        --with-internal-xdg=1 \
-        --with-gamedatadir=. --with-localesdir='./locale' --with-x=no
-#        --with-asian-ttf-file=Textures/Fonts/asian.ttf
+    if [ \! -f Makefile ]; then
+        DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
+            DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
+            OBJC="$CC" OBJCFLAGS="$CFLAGS" \
+            CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
+            LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
+            LIBS="-lxml2" \
+            ./configure --prefix=$PREFIX --disable-dependency-tracking \
+            --with-apple-opengl-framework \
+            --with-sdl-framework=$SDLDIR/SDL.framework \
+            --disable-sdltest \
+            --with-internal-xdg=1 \
+            --with-gamedatadir=. --with-localesdir='./locale' --with-x=no
+#           --with-asian-ttf-file=Textures/Fonts/asian.ttf
+    fi
     
     # if we're running xmoto -pack, we need to be able to find the libs
     # even though their install_paths are designed for the .app
