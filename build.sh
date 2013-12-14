@@ -15,6 +15,9 @@ $BASEDIR/source.sh
 $BASEDIR/dmg.sh
 mkdir -p build; cd build
 
+# chinese font
+if [ \! -d wqy-microhei ]; then tar xf $SRCDIR/wqy-microhei*; fi
+
 # devel-lite: The minimal SDLmain implementation
 if [ \! -f $PREFIX/lib/libSDLmain.a ]; then
     rm -rf devel-lite; cp -R $SDLDIR/devel-lite devel-lite
@@ -106,10 +109,10 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     dir=`find . -maxdepth 1 -name xmoto\* -type d | head -n1`
     pushd $dir
     
-#    ln -sf "/System/Library/Fonts/儷黑 Pro.ttf" asian.ttf
+    cp -f ../wqy-microhei/wqy-microhei.ttc asian.ttf
     cat $PATCHDIR/xmoto-*.patch | patch -p1 --forward || [ 1 = $? ]
     
-    if [ \! -f configure ]; then
+    if [ \! -f configure -o configure -ot configure.in ]; then
     	# Fix aclocal breakage
     	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
     		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
@@ -129,8 +132,8 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
             --with-sdl-framework=$SDLDIR/SDL.framework \
             --disable-sdltest \
             --with-internal-xdg=1 \
-            --with-gamedatadir=. --with-localesdir='./locale' --with-x=no
-#           --with-asian-ttf-file=Textures/Fonts/asian.ttf
+            --with-gamedatadir=. --with-localesdir='./locale' --with-x=no \
+            --with-asian-ttf-file=Textures/Fonts/asian.ttf
     fi
     
     # if we're running xmoto -pack, we need to be able to find the libs
@@ -138,7 +141,7 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
         DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib make -j$PARALLEL
     make install
-#    cp asian.ttf $PREFIX/share/xmoto/Textures/Fonts/
+    cp asian.ttf $PREFIX/share/xmoto/Textures/Fonts/asian.ttf
     
     popd
 fi

@@ -68,11 +68,12 @@ lua: MIT license
 SDL libraries, ODE: GNU Lesser General Public License v2.1
 gettext: GNU General Public License v3
 xmoto: GNU General Public License v2
+wqy-microhei: Apache 2 License
 
 
 These scripts:
 
-Copyright (c) 2008, Dave Vasilevsky
+Copyright (c) 2008-2013, Dave Vasilevsky
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

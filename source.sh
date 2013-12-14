@@ -45,3 +45,7 @@ fi
 if [ \! -f SDLMain.m ]; then
     curl -O http://hg.libsdl.org/SDL/raw-file/SDL-1.2/src/main/macosx/SDLMain.m
 fi
+
+if [ \! -f wqy-microhei* ]; then
+    curl -OL https://downloads.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz
+fi
