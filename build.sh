@@ -112,21 +112,11 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
     cp -f ../wqy-microhei/wqy-microhei.ttc asian.ttf
     cat $PATCHDIR/xmoto-*.patch | patch -p1 --forward || [ 1 = $? ]
     
-    if [ \! -f configure -o configure -ot configure.in ]; then
-    	# Fix aclocal breakage
-    	sed -e "s, /usr/share/autoconf, $XC3ROOT/usr/share/autoconf," \
-    		< $XC3ROOT/usr/share/autoconf/autom4te.cfg \
-    		> autom4te.cfg
-    	AUTOM4TE_CFG="$PWD/autom4te.cfg" autoreconf -i
-    fi
-    
     if [ \! -f Makefile ]; then
         DYLD_FALLBACK_FRAMEWORK_PATH=$SDLDIR \
             DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
-            OBJC="$CC" OBJCFLAGS="$CFLAGS" \
             CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
             LDFLAGS="-L$PREFIX/lib -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
-            LIBS="-lxml2" \
             ./configure --prefix=$PREFIX --disable-dependency-tracking \
             --with-apple-opengl-framework \
             --with-sdl-framework=$SDLDIR/SDL.framework \
