@@ -33,9 +33,7 @@ NOTES
 TODO
 
 * Submit my patches to xmoto maintainers
-* Make my SVN repo cleaner
 * Eventually make the system more elegant and robust
-* Ensure no outside utilities (Fink, MacPorts) are being used
 * Make it build with Xcode 4?
 
 

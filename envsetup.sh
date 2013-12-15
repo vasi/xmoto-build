@@ -1,5 +1,5 @@
 export XC3ROOT=${XC3ROOT-/Library/Xcode3}
-export PATH=$XC3ROOT/usr/bin:$PATH
+export PATH=$XC3ROOT/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export SRCDIR=$BASEDIR/src
 export SDLDIR=$BASEDIR/sdl
