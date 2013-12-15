@@ -41,7 +41,7 @@ if [ \! -f $PREFIX/lib/libjpeg.dylib ]; then
     
     ./configure --prefix=$PREFIX --enable-shared --enable-static \
         --disable-dependency-tracking
-    make -j$PARALLEL LDFLAGS="$SYSLIBROOT $ARCHES"
+    make -j$PARALLEL LDFLAGS="$ARCHES"
     make install
     
     popd
@@ -52,7 +52,7 @@ if [ \! -f $PREFIX/lib/libpng.dylib ]; then
     if [ \! -d libpng* ]; then tar xf $SRCDIR/libpng*; fi
     pushd libpng*
     
-    CFLAGS="$OPT $ARCHES" CPPFLAGS="$INCPATH" LDFLAGS="$ARCHES $SYSLIBROOT" \
+    CFLAGS="$OPT $ARCHES" CPPFLAGS="$INCPATH" LDFLAGS="$ARCHES" \
         ./configure --prefix=$PREFIX --disable-dependency-tracking
     make -j$PARALLEL && make install
     
@@ -65,7 +65,7 @@ if [ \! -f $PREFIX/lib/liblua.a ]; then
     pushd lua*
 
     make -j$PARALLEL PLAT=macosx CC=$CC CFLAGS="$CFLAGS" \
-        MYLDFLAGS="$ARCHES $SYSLIBROOT"
+        MYLDFLAGS="$ARCHES"
     make install INSTALL_TOP=$PREFIX
     
     popd
@@ -125,7 +125,7 @@ if [ \! -f $PREFIX/bin/xmoto ]; then
             DYLD_FALLBACK_LIBRARY_PATH=$PREFIX/lib \
             OBJC="$CC" OBJCFLAGS="$CFLAGS" \
             CPPFLAGS="-DdDOUBLE -I$PREFIX/include -I/usr/include/libxml2 -F$SDLDIR" \
-            LDFLAGS="-L$PREFIX/lib $ARCH_OPT $SYSLIBROOT -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
+            LDFLAGS="-L$PREFIX/lib -F$SDLDIR -Wl,-rpath,@executable_path/../Frameworks" \
             LIBS="-lxml2" \
             ./configure --prefix=$PREFIX --disable-dependency-tracking \
             --with-apple-opengl-framework \
