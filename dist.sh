@@ -2,10 +2,8 @@
 
 export OPT='-Os'
 
-# 10.6 Intel
-export MACOSX_DEPLOYMENT_TARGET=10.6
-export SDKID=MacOSX10.6.sdk
-export GCC_VERSION=4.2
+export MACOSX_DEPLOYMENT_TARGET=10.8
+export SDKROOT=$(xcrun --show-sdk-path --sdk macosx10.8)
 export ARCHES="-arch i386 -arch x86_64"
 ./build.sh intel
 

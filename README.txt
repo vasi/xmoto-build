@@ -3,14 +3,12 @@ INTRODUCTION
 This is a script to package X-Moto ( http://xmoto.tuxfamily.org ) for Mac OS X. It takes care of all the nastiness that folks often forget to deal with:
 
 * Self-contained .app bundle, no installer needed
-* Works on Mac OS X 10.6 and higher
+* Works on Mac OS X 10.7 and higher
 * Detects locales properly
 * Doesn't hardcode any paths
 
 
 INSTRUCTIONS
-
-Install Xcode 3, the prefix I prefer is /Library/Xcode3. To install it on a recent version of OS X: http://lapcatsoftware.com/articles/xcode3onmountainlion.html
 
 Open the terminal, and cd into the parent directory of this README. Then run ./build.sh . You will end up with a nice .dmg containing X-Moto in the 'build' directory.
 
@@ -19,12 +17,11 @@ To build multi-arch for distribution, I recommend using dist.sh .
 
 NOTES
 
-* Script is verified to build X-Moto on 10.9 with Xcode 3 installed.
+* Script is verified to build X-Moto on 10.9 with Xcode 4.
 
 * Various options are in envsetup.sh. Includes:
-  - Xcode 3 prefix
   - Architectures (currently i386/x86_64)
-  - SDK (currently 10.6)
+  - SDK (currently 10.8)
   - GCC optimization flags (currently -Os)
 
 * To update the packages used by the script, edit source.sh, and remove files from 'src'.
@@ -34,7 +31,6 @@ TODO
 
 * Submit my patches to xmoto maintainers
 * Eventually make the system more elegant and robust
-* Make it build with Xcode 4?
 
 
 PATCHES
@@ -42,8 +38,6 @@ PATCHES
 * devel-lite: Make X-Moto chdir to the .app/Contents/Resources directory, so it can find the xmoto.bin and other such resources.
 
 * xmoto-mac-dirs: Put prefs and such in ~/Library directories. Maybe there should be some sort of migration procedure?
-
-* xmoto-libxml2: Don't use xml2-config, it has trouble with SDKs.
 
 * xmoto-jpeg: Handle 'boolean' being doubly defined.
 
